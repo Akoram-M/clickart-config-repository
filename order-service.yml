@@ -21,6 +21,10 @@ spring:
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
 
 # Add the local URL here
 inventory:
@@ -38,7 +42,7 @@ spring:
   kafka:
     bootstrap-servers: clickart-kafka-1:29092
 
-# Add the Docker network URL here
-inventory:
-  service:
-    url: http://clickart-inventory-service:8084
+eureka:
+  client:
+    service-url:
+      defaultZone: http://clickart-discovery-server:8761/eureka/

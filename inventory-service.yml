@@ -2,7 +2,12 @@
 # DEFAULT PROFILE: Active when running locally via terminal/IDE
 server:
   port: 8084
-  
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
 logging:
   level:
     com.zaxxer.hikari.HikariConfig: DEBUG
@@ -26,3 +31,8 @@ spring:
       on-profile: docker
   datasource:
     url: jdbc:postgresql://clickart-postgres-1:5432/inventory_db
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://clickart-discovery-server:8761/eureka/
