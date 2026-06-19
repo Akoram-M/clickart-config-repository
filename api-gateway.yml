@@ -1,0 +1,48 @@
+# clickart-config-repo/api-gateway.yml
+# DEFAULT PROFILE: Active when running locally via terminal/IDE
+server:
+  port: 8083
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: product-service
+          uri: http://localhost:8080
+          predicates:
+            - Path=/api/products/**
+        - id: order-service
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/orders/**
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8081/realms/clickart-realm
+
+---
+# DOCKER PROFILE: Active only when running inside Docker containers
+spring:
+  config:
+    activate:
+      on-profile: docker
+  cloud:
+    gateway:
+      routes:
+        - id: product-service
+          uri: http://clickart-product-service:8080
+          predicates:
+            - Path=/api/products/**
+        - id: order-service
+          uri: http://clickart-order-service:8082
+          predicates:
+            - Path=/api/orders/**
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # The Validation String (Matches what Postman sees)
+          issuer-uri: http://localhost:8081/realms/clickart-realm
+          # The Internal Network Path (Where Gateway physically downloads the keys)
+          jwk-set-uri: http://clickart-keycloak-1:8080/realms/clickart-realm/protocol/openid-connect/certs
