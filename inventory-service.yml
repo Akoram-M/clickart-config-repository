@@ -2,6 +2,11 @@
 # DEFAULT PROFILE: Active when running locally via terminal/IDE
 server:
   port: 8084
+  
+logging:
+  level:
+    com.zaxxer.hikari.HikariConfig: DEBUG
+    com.zaxxer.hikari: TRACE
 
 spring:
   datasource:
