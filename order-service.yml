@@ -1,10 +1,11 @@
-# config-server/src/main/resources/config-repo/order-service.yml
+# clickart-config-repo/order-service.yml
+# DEFAULT PROFILE: Active when running locally via terminal/IDE
 server:
   port: 8082
 
 spring:
   datasource:
-    url: jdbc:postgresql://clickart-postgres-1:5432/orders_db
+    url: jdbc:postgresql://localhost:5432/orders_db
     username: test
     password: test
     driver-class-name: org.postgresql.Driver
@@ -12,7 +13,18 @@ spring:
     hibernate:
       ddl-auto: update
   kafka:
-    bootstrap-servers: clickart-kafka-1:29092
+    bootstrap-servers: localhost:9092
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+---
+# DOCKER PROFILE: Active only when running inside Docker containers
+spring:
+  config:
+    activate:
+      on-profile: docker
+  datasource:
+    url: jdbc:postgresql://clickart-postgres-1:5432/orders_db
+  kafka:
+    bootstrap-servers: clickart-kafka-1:29092
