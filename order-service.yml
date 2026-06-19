@@ -1,5 +1,4 @@
-# clickart-config-repo/order-service.yml
-# DEFAULT PROFILE: Active when running locally via terminal/IDE
+# DEFAULT PROFILE
 server:
   port: 8082
 
@@ -18,8 +17,13 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
+# Add the local URL here
+inventory:
+  service:
+    url: http://localhost:8084
+
 ---
-# DOCKER PROFILE: Active only when running inside Docker containers
+# DOCKER PROFILE
 spring:
   config:
     activate:
@@ -28,3 +32,8 @@ spring:
     url: jdbc:postgresql://clickart-postgres-1:5432/orders_db
   kafka:
     bootstrap-servers: clickart-kafka-1:29092
+
+# Add the Docker network URL here
+inventory:
+  service:
+    url: http://clickart-inventory-service:8084
