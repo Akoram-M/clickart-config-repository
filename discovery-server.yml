@@ -1,0 +1,10 @@
+# clickart-config-repo/discovery-server.yml
+server:
+  port: 8761 # Standard Eureka port
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: false # Do not register yourself
+    fetch-registry: false # Do not pull registries from others
