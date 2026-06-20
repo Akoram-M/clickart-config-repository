@@ -1,11 +1,6 @@
 # DEFAULT PROFILE
 server:
   port: 8082
-
-logging:
-  level:
-    com.zaxxer.hikari.HikariConfig: DEBUG
-    com.zaxxer.hikari: TRACE
     
 spring:
   datasource:
