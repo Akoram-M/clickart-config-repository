@@ -1,0 +1,20 @@
+# DEFAULT PROFILE
+server:
+  port: 8085
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+---
+# DOCKER PROFILE
+spring:
+  config:
+    activate:
+      on-profile: docker
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://clickart-discovery-server:8761/eureka/
