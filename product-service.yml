@@ -6,8 +6,10 @@ server:
 spring:
   data:
     mongodb:
-      uri: mongodb://root:example@localhost:27018/product_db?authSource=admin
-
+      uri: mongodb://test:test@localhost:27018/product_db?authSource=admin
+     #The format for a MongoDB connection URI is:
+     #mongodb://{username}:{password}@{hostname}:{port}/{database}?authSource=admin
+    
 eureka:
   client:
     service-url:
@@ -21,7 +23,7 @@ spring:
       on-profile: docker
   data:
     mongodb:
-      uri: mongodb://root:example@clickart-mongodb-1:27017/product_db?authSource=admin
+      uri: mongodb://test:test@clickart-mongodb-1:27017/product_db?authSource=admin
 
 eureka:
   client:
