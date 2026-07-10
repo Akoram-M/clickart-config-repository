@@ -30,3 +30,9 @@ management:
   metrics:
     tags:
       application: ${spring.application.name}
+  tracing:
+    sampling:
+      probability: 1.0 # Force 100% of requests to be traced (for dev only, lower for prod)
+  zipkin:
+    tracing:
+      endpoint: http://clickart-zipkin:9411/api/v2/spans
