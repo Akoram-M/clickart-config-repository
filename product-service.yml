@@ -24,7 +24,9 @@ spring:
   data:
     mongodb:
       uri: mongodb://test:test@clickart-mongodb-1:27017/product_db?authSource=admin
-
+    redis:
+      host: clickart-redis-1
+      port: 6379
 eureka:
   client:
     service-url:
