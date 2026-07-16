@@ -27,6 +27,14 @@ spring:
     redis:
       host: clickart-redis-1
       port: 6379
+  kafka:
+    bootstrap-servers: clickart-kafka-1:29092
+    consumer:
+      group-id: product-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      
 eureka:
   client:
     service-url:
