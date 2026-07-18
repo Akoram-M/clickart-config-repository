@@ -77,6 +77,8 @@ eureka:
       defaultZone: http://clickart-discovery-server:8761/eureka/
   instance:
     prefer-ip-address: true
+    # Force the instance ID to be the IP address for clarity in the dashboard
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
 
 management:
   endpoints:
