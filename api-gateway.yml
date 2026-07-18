@@ -65,7 +65,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8081/realms/clickart-realm
+          issuer-uri: http://clickart-keycloak-1:8080/realms/clickart-realm
           jwk-set-uri: http://clickart-keycloak-1:8080/realms/clickart-realm/protocol/openid-connect/certs
 
 eureka:
