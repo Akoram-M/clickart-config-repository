@@ -11,6 +11,8 @@ spring:
      #mongodb://{username}:{password}@{hostname}:{port}/{database}?authSource=admin
     
 eureka:
+  instance:
+    prefer-ip-address: true
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
