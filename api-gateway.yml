@@ -70,6 +70,8 @@ spring:
         jwt:
           issuer-uri: http://clickart-keycloak-1:8080/realms/clickart-realm
           jwk-set-uri: http://clickart-keycloak-1:8080/realms/clickart-realm/protocol/openid-connect/certs
+          audiences:
+            - account
 
 eureka:
   client:
