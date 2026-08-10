@@ -49,18 +49,27 @@ spring:
   cloud:
     gateway:
       routes:
+        # CRITICAL FIX: Swagger routing logic added to the Docker profile
         - id: product-service
           uri: lb://product-service
           predicates:
-            - Path=/api/products/**
+            - Path=/api/products/**, /product-service/v3/api-docs
+          filters:
+            - RewritePath=/product-service/(?<segment>.*), /$\{segment}
+
         - id: order-service
           uri: lb://order-service
           predicates:
-            - Path=/api/orders/**
+            - Path=/api/orders/**, /order-service/v3/api-docs
+          filters:
+            - RewritePath=/order-service/(?<segment>.*), /$\{segment}
+
         - id: inventory-service
           uri: lb://inventory-service
           predicates:
-            - Path=/api/inventory/**
+            - Path=/api/inventory/**, /inventory-service/v3/api-docs
+          filters:
+            - RewritePath=/inventory-service/(?<segment>.*), /$\{segment}
   security:
     oauth2:
       resourceserver:
