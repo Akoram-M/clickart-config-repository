@@ -38,7 +38,6 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
   instance:
     prefer-ip-address: true
-    
 
 ---
 # DOCKER PROFILE: Active only when running inside Docker containers
@@ -49,7 +48,6 @@ spring:
   cloud:
     gateway:
       routes:
-        # CRITICAL FIX: Swagger routing logic added to the Docker profile
         - id: product-service
           uri: lb://product-service
           predicates:
@@ -74,9 +72,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          # What the Gateway expects to see written inside the token (External)
-          issuer-uri: http://localhost/realms/clickart-realm
-          # Where the Gateway physically goes inside the cluster to download the public keys (Internal)
+          issuer-uri: http://clickart-keycloak-1:8080/realms/clickart-realm
           jwk-set-uri: http://clickart-keycloak-1:8080/realms/clickart-realm/protocol/openid-connect/certs
 
 eureka:
@@ -100,7 +96,7 @@ management:
       application: ${spring.application.name}
   tracing:
     sampling:
-      probability: 1.0 # Force 100% of requests to be traced (for dev only, lower for prod)
+      probability: 1.0 
   zipkin:
     tracing:
       endpoint: http://clickart-zipkin:9411/api/v2/spans
