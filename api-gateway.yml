@@ -5,30 +5,27 @@ server:
 spring:
   cloud:
     gateway:
-      globalcors:
-        corsConfigurations:
-          '[/**]':
-            allowedOrigins: "http://localhost:3000"
-            allowedMethods:
-              - GET
-              - POST
-              - PUT
-              - DELETE
-              - OPTIONS
-            allowedHeaders: "*"
       routes:
         - id: product-service
           uri: lb://product-service
           predicates:
-            - Path=/api/products/**
+            - Path=/api/products/**, /product-service/v3/api-docs
+          filters:
+            - RewritePath=/product-service/(?<segment>.*), /$\{segment}
+
         - id: order-service
           uri: lb://order-service
           predicates:
-            - Path=/api/orders/**
+            - Path=/api/orders/**, /order-service/v3/api-docs
+          filters:
+            - RewritePath=/order-service/(?<segment>.*), /$\{segment}
+
         - id: inventory-service
           uri: lb://inventory-service
           predicates:
-            - Path=/api/inventory/**
+            - Path=/api/inventory/**, /inventory-service/v3/api-docs
+          filters:
+            - RewritePath=/inventory-service/(?<segment>.*), /$\{segment}
   security:
     oauth2:
       resourceserver:
@@ -98,3 +95,14 @@ management:
   zipkin:
     tracing:
       endpoint: http://clickart-zipkin:9411/api/v2/spans
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    urls:
+      - name: Product Service
+        url: /product-service/v3/api-docs
+      - name: Order Service
+        url: /order-service/v3/api-docs
+      - name: Inventory Service
+        url: /inventory-service/v3/api-docs
