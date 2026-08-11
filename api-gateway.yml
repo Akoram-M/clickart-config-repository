@@ -16,6 +16,9 @@ spring:
               args:
                 name: productServiceCircuitBreaker
                 fallbackUri: forward:/fallback/product
+                statusCodes:
+                  - 503
+
         - id: order-service
           uri: lb://order-service
           predicates:
@@ -57,7 +60,12 @@ spring:
             - Path=/api/products/**, /product-service/v3/api-docs
           filters:
             - RewritePath=/product-service/(?<segment>.*), /$\{segment}
-
+            - name: CircuitBreaker
+              args:
+                name: productServiceCircuitBreaker
+                fallbackUri: forward:/fallback/product
+                statusCodes:
+                  - 503
         - id: order-service
           uri: lb://order-service
           predicates:
