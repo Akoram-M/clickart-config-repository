@@ -12,7 +12,10 @@ spring:
             - Path=/api/products/**, /product-service/v3/api-docs
           filters:
             - RewritePath=/product-service/(?<segment>.*), /$\{segment}
-
+            - name: CircuitBreaker
+              args:
+                name: productServiceCircuitBreaker
+                fallbackUri: forward:/fallback/product
         - id: order-service
           uri: lb://order-service
           predicates:
