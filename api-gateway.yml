@@ -25,13 +25,24 @@ spring:
             - Path=/api/orders/**, /order-service/v3/api-docs
           filters:
             - RewritePath=/order-service/(?<segment>.*), /$\{segment}
-
+            - name: CircuitBreaker
+              args:
+                name: orderServiceCircuitBreaker
+                fallbackUri: forward:/fallback/order
+                statusCodes:
+                  - 503
         - id: inventory-service
           uri: lb://inventory-service
           predicates:
             - Path=/api/inventory/**, /inventory-service/v3/api-docs
           filters:
             - RewritePath=/inventory-service/(?<segment>.*), /$\{segment}
+            - name: CircuitBreaker
+              args:
+                name: inventoryServiceCircuitBreaker
+                fallbackUri: forward:/fallback/inventory
+                statusCodes:
+                  - 503
   security:
     oauth2:
       resourceserver:
@@ -72,13 +83,24 @@ spring:
             - Path=/api/orders/**, /order-service/v3/api-docs
           filters:
             - RewritePath=/order-service/(?<segment>.*), /$\{segment}
-
+            - name: CircuitBreaker
+              args:
+                name: orderServiceCircuitBreaker
+                fallbackUri: forward:/fallback/order
+                statusCodes:
+                  - 503
         - id: inventory-service
           uri: lb://inventory-service
           predicates:
             - Path=/api/inventory/**, /inventory-service/v3/api-docs
           filters:
             - RewritePath=/inventory-service/(?<segment>.*), /$\{segment}
+            - name: CircuitBreaker
+              args:
+                name: inventoryServiceCircuitBreaker
+                fallbackUri: forward:/fallback/inventory
+                statusCodes:
+                  - 503
   security:
     oauth2:
       resourceserver:
