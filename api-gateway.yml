@@ -1,7 +1,10 @@
 # DEFAULT PROFILE: Active when running locally via terminal/IDE
 server:
   port: 8083
-
+  data:
+    redis:
+      host: localhost
+      port: 6379
 spring:
   cloud:
     gateway:
@@ -18,6 +21,12 @@ spring:
                 fallbackUri: forward:/fallback/product
                 statusCodes:
                   - 503
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 2
+                redis-rate-limiter.burstCapacity: 5
+                redis-rate-limiter.requestedTokens: 1
+                key-resolver: "#{@userKeyResolver}"
 
         - id: order-service
           uri: lb://order-service
@@ -31,6 +40,13 @@ spring:
                 fallbackUri: forward:/fallback/order
                 statusCodes:
                   - 503
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 2
+                redis-rate-limiter.burstCapacity: 5
+                redis-rate-limiter.requestedTokens: 1
+                key-resolver: "#{@userKeyResolver}"
+
         - id: inventory-service
           uri: lb://inventory-service
           predicates:
@@ -43,6 +59,12 @@ spring:
                 fallbackUri: forward:/fallback/inventory
                 statusCodes:
                   - 503
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 2
+                redis-rate-limiter.burstCapacity: 5
+                redis-rate-limiter.requestedTokens: 1
+                key-resolver: "#{@userKeyResolver}"
   security:
     oauth2:
       resourceserver:
@@ -62,6 +84,10 @@ spring:
   config:
     activate:
       on-profile: docker
+  data:
+    redis:
+      host: clickart-redis-1
+      port: 6379
   cloud:
     gateway:
       routes:
@@ -77,6 +103,13 @@ spring:
                 fallbackUri: forward:/fallback/product
                 statusCodes:
                   - 503
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 2
+                redis-rate-limiter.burstCapacity: 5
+                redis-rate-limiter.requestedTokens: 1
+                key-resolver: "#{@userKeyResolver}"
+
         - id: order-service
           uri: lb://order-service
           predicates:
@@ -89,6 +122,13 @@ spring:
                 fallbackUri: forward:/fallback/order
                 statusCodes:
                   - 503
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 2
+                redis-rate-limiter.burstCapacity: 5
+                redis-rate-limiter.requestedTokens: 1
+                key-resolver: "#{@userKeyResolver}"
+
         - id: inventory-service
           uri: lb://inventory-service
           predicates:
@@ -101,6 +141,12 @@ spring:
                 fallbackUri: forward:/fallback/inventory
                 statusCodes:
                   - 503
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 2
+                redis-rate-limiter.burstCapacity: 5
+                redis-rate-limiter.requestedTokens: 1
+                key-resolver: "#{@userKeyResolver}"
   security:
     oauth2:
       resourceserver:
