@@ -27,6 +27,8 @@ spring:
                 redis-rate-limiter.burstCapacity: 5
                 redis-rate-limiter.requestedTokens: 1
                 key-resolver: "#{@userKeyResolver}"
+                deny-empty-key: true
+                empty-key-status-code: 403
 
         - id: order-service
           uri: lb://order-service
@@ -46,6 +48,8 @@ spring:
                 redis-rate-limiter.burstCapacity: 5
                 redis-rate-limiter.requestedTokens: 1
                 key-resolver: "#{@userKeyResolver}"
+                deny-empty-key: true
+                empty-key-status-code: 403
 
         - id: inventory-service
           uri: lb://inventory-service
@@ -65,6 +69,8 @@ spring:
                 redis-rate-limiter.burstCapacity: 5
                 redis-rate-limiter.requestedTokens: 1
                 key-resolver: "#{@userKeyResolver}"
+                deny-empty-key: true
+                empty-key-status-code: 403
   security:
     oauth2:
       resourceserver:
@@ -109,6 +115,8 @@ spring:
                 redis-rate-limiter.burstCapacity: 50
                 redis-rate-limiter.requestedTokens: 1
                 key-resolver: "#{@userKeyResolver}"
+                deny-empty-key: true
+                empty-key-status-code: 403
 
         - id: order-service
           uri: lb://order-service
@@ -128,6 +136,8 @@ spring:
                 redis-rate-limiter.burstCapacity: 5
                 redis-rate-limiter.requestedTokens: 1
                 key-resolver: "#{@userKeyResolver}"
+                deny-empty-key: true
+                empty-key-status-code: 403
 
         - id: inventory-service
           uri: lb://inventory-service
@@ -147,6 +157,8 @@ spring:
                 redis-rate-limiter.burstCapacity: 50
                 redis-rate-limiter.requestedTokens: 1
                 key-resolver: "#{@userKeyResolver}"
+                deny-empty-key: true
+                empty-key-status-code: 403
   security:
     oauth2:
       resourceserver:
