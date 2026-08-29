@@ -153,8 +153,8 @@ spring:
                   - 503
             - name: RequestRateLimiter
               args:
-                redis-rate-limiter.replenishRate: 20
-                redis-rate-limiter.burstCapacity: 50
+                redis-rate-limiter.replenishRate: 1
+                redis-rate-limiter.burstCapacity: 1
                 redis-rate-limiter.requestedTokens: 1
                 key-resolver: "#{@userKeyResolver}"
                 deny-empty-key: true
